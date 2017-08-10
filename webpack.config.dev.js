@@ -23,12 +23,13 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.html$/,
+        test: /\.(html|tpl)$/,
         loader: 'raw-loader',
       },
       {
         test: /\.ts$/,
         loader: 'awesome-typescript-loader',
+        exclude: [path.join(__dirname, '/server/index.ts')],
       },
       {
         test: /\.scss$/,
@@ -37,7 +38,7 @@ module.exports = {
           loader: "css-loader!sass-loader",
         }),
       },
-    ]
+    ],
   },
   resolve: {
     extensions: ['.html', '.js','.ts', '.__dev.ts'],

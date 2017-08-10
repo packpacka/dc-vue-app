@@ -6,13 +6,7 @@ import { store } from "../store/store";
 
 @Component({
   store,
-  template: `
-    <div>
-      <h1>geologic</h1>
-      <input type="text" />
-      <button disabled>я здесь</button>
-    </div>
-  `,
+  template: require('./geologic.component.tpl'),
 })
 export class GeoLogicComponent extends Vue {
   public store = store;
