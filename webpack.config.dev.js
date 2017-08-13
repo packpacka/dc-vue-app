@@ -29,7 +29,6 @@ module.exports = {
       {
         test: /\.ts$/,
         loader: 'awesome-typescript-loader',
-        exclude: [path.join(__dirname, '/server/index.ts')],
       },
       {
         test: /\.scss$/,
@@ -41,7 +40,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.html', '.js','.ts', '.__dev.ts'],
+    extensions: ['.html', '.js','.ts', '.__dev.ts', '.tpl'],
     alias: {
       'vue$': 'vue/dist/vue.common.js'
     },
