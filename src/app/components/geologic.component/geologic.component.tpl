@@ -1,5 +1,8 @@
 <div>
     <h1>geologic</h1>
-    <input type="text" />
+    <autocomplete-input
+        :getSuggests='getAddresses'
+        :onSuggestSelect='onAddressSelect'
+    ></autocomplete-input>
     <button disabled>я здесь</button>
 </div>
