@@ -2,8 +2,10 @@ import * as Vue from 'vue';
 import * as VueRouter from 'vue-router';
 import * as Vuex from 'vuex';
 import * as vScroll from 'vue-scroll'
-import { router } from "./router";
+import { router } from './router';
+import { ymapMixin } from './utils/ymaps/ymaps.mixin';
 
+Vue.mixin(ymapMixin);
 
 /**
  * view instance mount dom node selector
