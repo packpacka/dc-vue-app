@@ -13,12 +13,12 @@ import { AutocompleteInput } from "../../ui/autocomplete.input/autocomplete.inpu
 export class GeoLogicComponent extends Vue {
   public store = store;
 
-  private getAddresses(search: string) {
-    console.log('make request ', search);
-    return Promise.resolve([1,2,3].map(i => `item ${i} for ${search}`));
+  private getAddresses(search: string): Promise<string[]> {
+    return this.$ymaps.searchGeoObjects(search)
+      .then(suggestion => suggestion.map(s => s.displayName));
   }
 
-  private onAddressSelect(addres: string) {
-    console.log('selected item', addres);
+  private onAddressSelect(address: string) {
+    console.log('selected item', address);
   }
 }
