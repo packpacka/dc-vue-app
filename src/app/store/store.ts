@@ -1,10 +1,5 @@
 import * as Vue from 'vue';
 import * as Vuex from 'vuex';
-
-
-/**
- * initialize vuex plugin
- */
 Vue.use(Vuex);
 
 /**

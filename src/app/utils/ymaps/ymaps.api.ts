@@ -13,7 +13,7 @@ export interface IYmapsSuggestion {
 
 export interface IYmaps {
   Map: new (id: string, state: IYmapsMapConstructorState, options?: IYmapsMapConstructorOptions) => IYmapsMap;
-  Placemark: any; //tslint:disable-line: no-any
+  Placemark: any; // tslint:disable-line: no-any
   ready(cb: () => void): void;
   load(modules: string[], cb: (ymaps: IYmaps) => void, errback: (err: Error) => void): void;
   suggest(query: string, options?: IYmapsSuggestOptions): Promise<IYmapsSuggestion[]>;
@@ -32,7 +32,6 @@ export type YMapsCoords = [number, number];
 export type Vector = [YMapsCoords, YMapsCoords];
 export type YMapsBoundedBox = Vector;
 
-
 export interface IYmapsMap {
   container: {
     getSize: () => [number, number],
@@ -40,14 +39,14 @@ export interface IYmapsMap {
   setBounds: (bounds: YMapsBoundedBox, options?: IYmapsMapSetBoundsOptions) => void;
   getBounds: () => YMapsBoundedBox;
   getZoom: () => number;
-  //tslint:disable-next-line:no-any
+  // tslint:disable-next-line:no-any
   options: any;
-  //tslint:disable-next-line:no-any
+  // tslint:disable-next-line:no-any
   converter: any;
 }
 
 export interface IYmapsMapSetBoundsOptions {
-  //tslint:disable-next-line:no-any
+  // tslint:disable-next-line:no-any
   callback?: (err?: any) => void;
   checkZoomRange?: boolean;
 }
