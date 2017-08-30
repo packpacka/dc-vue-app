@@ -8,6 +8,10 @@ const REQUEST_DELAY = 1380;
 
 @Component({
   props: {
+    value: {
+      type: String,
+      default: '',
+    },
     placeholder: {
       type: String,
     },
@@ -27,11 +31,11 @@ const REQUEST_DELAY = 1380;
   components: { Preloader },
 })
 export class AutocompleteInput extends Vue {
-  public suggestions: string[] = [];
+  public value: string;
   public getSuggests: (search: string) => Promise<string[]>;
   public minLettersForRequest: number;
 
-  public value: string = '';
+  public suggestions: string[] = [];
   public loading: boolean = false;
   public firstType = true;
 
@@ -42,9 +46,8 @@ export class AutocompleteInput extends Vue {
   }
 
   public onInput(value: string) {
-    this.value = value;
     this.$emit('input', value);
-    this.search(this.value)
+    this.search(value)
       .then(() => this.firstType = false);
   }
 
@@ -55,7 +58,6 @@ export class AutocompleteInput extends Vue {
   }
 
   public selectSuggest(suggest: string) {
-    this.value = suggest;
     return this.$emit('select', suggest);
   }
 

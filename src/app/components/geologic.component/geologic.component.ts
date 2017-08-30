@@ -2,6 +2,7 @@ import * as Vue from 'vue';
 import Component from 'vue-class-component';
 import { store } from '../../store/store';
 import { AutocompleteInput } from '../../ui/autocomplete.input/autocomplete.input';
+import { actionKeys } from '../../store/actions';
 import './geologic.component.scss';
 
 @Component({
@@ -11,7 +12,8 @@ import './geologic.component.scss';
 })
 export class GeoLogicComponent extends Vue {
   public store = store;
-  public selectedAddress: string = '';
+  public selectedAddress: string = store.state.selectedAddress || '';
+  public search: string = store.state.selectedAddress || '';
 
   public getAddresses(search: string): Promise<string[]> {
     return this.$ymaps.searchGeoObjects(search)
@@ -19,10 +21,13 @@ export class GeoLogicComponent extends Vue {
   }
 
   public onAddressSelect(address: string) {
+    this.search = address;
     this.selectedAddress = address;
+    this.store.dispatch(actionKeys.saveAddress, address);
   }
 
-  public onType() {
+  public onType(value: string) {
+    this.search = value;
     this.selectedAddress = '';
   }
 

@@ -6,6 +6,7 @@
         :minLettersForRequest="4"
         @select="onAddressSelect"
         @input="onType"
+        :value="search"
     ></autocomplete-input>
     <button
       class="goToMapBtn"
