@@ -31,7 +31,20 @@ export class GeoLogicComponent extends Vue {
     this.selectedAddress = '';
   }
 
-  public onBtnClick() {
-    console.log('go to map');
+  public onSubmit() {
+    if (!this.selectedAddress) {
+      return;
+    }
+
+    this.$ymaps.getGeoCoordinates(this.selectedAddress)
+      .then(({ lat, lng }) => {
+        this.$router.push({
+          name: 'map',
+          query: {
+            lat: lat.toString(),
+            lng: lng.toString(),
+          },
+        });
+      });
   }
 }

@@ -11,12 +11,17 @@ export interface IYmapsSuggestion {
   value: string;
 }
 
+export interface IYmapsGeocodeResult {
+  geoObjects: any;
+}
+
 export interface IYmaps {
   Map: new (id: string, state: IYmapsMapConstructorState, options?: IYmapsMapConstructorOptions) => IYmapsMap;
   Placemark: any; // tslint:disable-line: no-any
   ready(cb: () => void): void;
   load(modules: string[], cb: (ymaps: IYmaps) => void, errback: (err: Error) => void): void;
   suggest(query: string, options?: IYmapsSuggestOptions): Promise<IYmapsSuggestion[]>;
+  geocode(query: string): Promise<IYmapsGeocodeResult>;
 }
 
 export interface IYmapsMapConstructorState {
@@ -92,7 +97,7 @@ function insertScriptToLoadYmaps(): Promise<IYmaps> {
   });
 }
 
-export type YMapModule = 'suggest';
+export type YMapModule = 'suggest' | 'geocode';
 
 function tryToLoadYmapsApi(modules: YMapModule[]): Promise<IYmaps> {
   if (!ymapsPromise) {
@@ -120,3 +125,15 @@ export function loadYmapsApi(modules: YMapModule[]): Promise<IYmaps> {
 export function searchGeoObjects(search: string): Promise<IYmapsSuggestion[]> {
   return loadYmapsApi(['suggest']).then(ymaps => ymaps.suggest(search));
 }
+
+type ICoordinates = { lat: number, lng: number };
+
+export const getGeoCoordinates = (geo: string): Promise<ICoordinates> => {
+  return loadYmapsApi(['geocode'])
+    .then(ymaps => ymaps.geocode(geo))
+    .then(res => {
+      const first = res.geoObjects.get(0);
+      const [lat, lng] = first.geometry.getCoordinates();
+      return { lat, lng };
+    });
+};

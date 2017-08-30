@@ -1,1 +1,4 @@
-<div>This is map</div>
+<div>
+lat: {{lat}}
+lng: {{lng}}
+</div>

@@ -1,1 +1,4 @@
-<map-component></map-component>
+<map-component
+  :lat="lat"
+  :lng="lng"
+/>
