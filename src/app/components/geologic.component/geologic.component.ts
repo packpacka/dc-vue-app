@@ -43,6 +43,7 @@ export class GeoLogicComponent extends Vue {
           query: {
             lat: lat.toString(),
             lng: lng.toString(),
+            title: this.selectedAddress,
           },
         });
       });

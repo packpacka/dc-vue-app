@@ -1,4 +1,2 @@
-<div>
-lat: {{lat}}
-lng: {{lng}}
+<div :id="mapId" class="address-map">
 </div>

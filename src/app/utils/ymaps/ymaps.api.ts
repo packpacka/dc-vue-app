@@ -26,7 +26,7 @@ export interface IYmaps {
 
 export interface IYmapsMapConstructorState {
   center: YMapsCoords;
-  zoom: number;
+  zoom?: number;
 }
 
 export interface IYmapsMapConstructorOptions {
@@ -38,16 +38,12 @@ export type Vector = [YMapsCoords, YMapsCoords];
 export type YMapsBoundedBox = Vector;
 
 export interface IYmapsMap {
-  container: {
-    getSize: () => [number, number],
-  };
-  setBounds: (bounds: YMapsBoundedBox, options?: IYmapsMapSetBoundsOptions) => void;
-  getBounds: () => YMapsBoundedBox;
-  getZoom: () => number;
-  // tslint:disable-next-line:no-any
-  options: any;
-  // tslint:disable-next-line:no-any
-  converter: any;
+  geoObjects: IYmapsGeoObjects;
+}
+
+export interface IYmapsGeoObjects {
+  add(object: any): void;
+  get(index: number): any;
 }
 
 export interface IYmapsMapSetBoundsOptions {
@@ -55,11 +51,6 @@ export interface IYmapsMapSetBoundsOptions {
   callback?: (err?: any) => void;
   checkZoomRange?: boolean;
 }
-
-export type MapCenterAndZoom = {
-  center: YMapsCoords;
-  zoom: number;
-};
 
 export interface IYmapsSuggestOptions {
   boundedBy?: YMapsBoundedBox;
@@ -97,7 +88,7 @@ function insertScriptToLoadYmaps(): Promise<IYmaps> {
   });
 }
 
-export type YMapModule = 'suggest' | 'geocode';
+export type YMapModule = 'suggest' | 'geocode' | 'Map' | 'Placemark' | 'geoObject.addon.balloon';
 
 function tryToLoadYmapsApi(modules: YMapModule[]): Promise<IYmaps> {
   if (!ymapsPromise) {
@@ -126,7 +117,10 @@ export function searchGeoObjects(search: string): Promise<IYmapsSuggestion[]> {
   return loadYmapsApi(['suggest']).then(ymaps => ymaps.suggest(search));
 }
 
-type ICoordinates = { lat: number, lng: number };
+interface ICoordinates {
+  lat: number;
+  lng: number;
+}
 
 export const getGeoCoordinates = (geo: string): Promise<ICoordinates> => {
   return loadYmapsApi(['geocode'])
@@ -136,4 +130,17 @@ export const getGeoCoordinates = (geo: string): Promise<ICoordinates> => {
       const [lat, lng] = first.geometry.getCoordinates();
       return { lat, lng };
     });
+};
+
+interface IInitMapResponse {
+  ymaps: IYmaps;
+  map: IYmapsMap;
+}
+export const initMap = (mapId: string, options?: IYmapsMapConstructorState): Promise<IInitMapResponse> => {
+  return loadYmapsApi(['Map', 'Placemark', 'geoObject.addon.balloon']).then(ymaps => {
+    return {
+      map: new ymaps.Map(mapId, options),
+      ymaps: ymaps,
+    };
+  });
 };
