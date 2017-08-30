@@ -1,10 +1,17 @@
 <div>
-    <h1>geologic</h1>
+    <h1>Где я?</h1>
     <autocomplete-input
         :getSuggests="getAddresses"
-        :onSuggestSelect="onAddressSelect"
         :placeholder="'Название места...'"
         :minLettersForRequest="4"
+        @select="onAddressSelect"
+        @input="onType"
     ></autocomplete-input>
-    <button disabled>я здесь</button>
+    <button
+      class="goToMapBtn"
+      :disabled="!selectedAddress"
+      @click="onBtnClick"
+    >
+      я здесь
+    </button>
 </div>

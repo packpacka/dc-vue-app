@@ -18,10 +18,6 @@ const REQUEST_DELAY = 1380;
     requestDelay: {
       type: Number,
     },
-    onSuggestSelect: {
-      type: Function,
-      require: true,
-    },
     minLettersForRequest: {
       type: Number,
       default: 0,
@@ -33,7 +29,6 @@ const REQUEST_DELAY = 1380;
 export class AutocompleteInput extends Vue {
   public suggestions: string[] = [];
   public getSuggests: (search: string) => Promise<string[]>;
-  public onSuggestSelect: (suggest: string) => void;
   public minLettersForRequest: number;
 
   public value: string = '';
@@ -48,6 +43,7 @@ export class AutocompleteInput extends Vue {
 
   public onInput(value: string) {
     this.value = value;
+    this.$emit('input', value);
     this.search(this.value)
       .then(() => this.firstType = false);
   }
@@ -60,7 +56,7 @@ export class AutocompleteInput extends Vue {
 
   public selectSuggest(suggest: string) {
     this.value = suggest;
-    return this.onSuggestSelect(suggest);
+    return this.$emit('select', suggest);
   }
 
   private search(search: string): Promise<void> {
