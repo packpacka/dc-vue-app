@@ -5,7 +5,9 @@
         @blur="onBlur"
         :value="value"
         :placeholder="placeholder"
-    />
+    >
+      <preloader v-if="loading" class="autocomplete_preloader" />
+    </input>
     <ul
       class="suggestions-list"
       v-if="showSuggestions"

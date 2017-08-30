@@ -1,5 +1,6 @@
 import * as Vue from 'vue';
 import Component from 'vue-class-component';
+import { Preloader } from '../preloader/preloader';
 import './autocomplete.input.scss';
 import * as debounce from 'debounce-promise';
 
@@ -27,6 +28,7 @@ const REQUEST_DELAY = 1380;
     },
   },
   template: require('./autocomplete.input.tpl'),
+  components: { Preloader },
 })
 export class AutocompleteInput extends Vue {
   public suggestions: string[] = [];

@@ -1,0 +1,69 @@
+.preloader {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+@mixin createDot($number, $deg, $animationDelay) {
+  .preloader .dot#{$number} {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    -webkit-transform: rotate($deg);
+    -ms-transform: rotate($deg);
+    transform: rotate($deg);
+
+    &:before {
+      content: '';
+      display: block;
+      margin: 0 auto;
+      width: 15%;
+      height: 15%;
+      background-color: #333;
+      border-radius: 100%;
+      -webkit-animation: dotFadeDelay 1.2s infinite ease-in-out both;
+      animation: dotFadeDelay 1.2s infinite ease-in-out both;
+      -webkit-animation-delay: $animationDelay;
+      animation-delay: $animationDelay;
+    }
+  }
+}
+@include createDot(1, 0deg, 0s);
+@include createDot(2, 30deg, -1.1s);
+@include createDot(3, 60deg, -1s);
+@include createDot(4, 90deg, -0.9s);
+@include createDot(5, 120deg, -0.8s);
+@include createDot(6, 150deg, -0.7s);
+@include createDot(7, 180deg, -0.6s);
+@include createDot(8, 210deg, -0.5s);
+@include createDot(9, 240deg, -0.4s);
+@include createDot(10, 270deg, -0.3s);
+@include createDot(11, 300deg, -0.2s);
+@include createDot(12, 330deg, -0.1s);
+
+@-webkit-keyframes dotFadeDelay {
+  0%,
+  39%,
+  100% {
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 1;
+  }
+}
+
+@keyframes dotFadeDelay {
+  0%,
+  39%,
+  100% {
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 1;
+  }
+}
