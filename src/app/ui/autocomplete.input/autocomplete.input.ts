@@ -1,6 +1,9 @@
 import * as Vue from 'vue';
 import Component from 'vue-class-component';
 import './autocomplete.input.scss';
+import * as debounce from 'debounce-promise';
+
+const REQUEST_DELAY = 1380;
 
 @Component({
   props: {
@@ -43,7 +46,7 @@ export class AutocompleteInput extends Vue {
 
   public onInput(value: string) {
     this.value = value;
-    this.fillSuggestions(this.value)
+    this.search(this.value)
       .then(() => this.firstType = false);
   }
 
@@ -58,12 +61,22 @@ export class AutocompleteInput extends Vue {
     return this.onSuggestSelect(suggest);
   }
 
-  private fillSuggestions(search: string): Promise<void> {
-    if (search && search.length >= this.minLettersForRequest) {
-      return this.getSuggests(search).then((suggestions) => {
+  private search(search: string): Promise<void> {
+    if (!search || search.length < this.minLettersForRequest) {
+      return Promise.resolve();
+    }
+
+    this.loading = true;
+    return this.request(search).then(
+      (suggestions) => {
+        this.loading = false;
         this.suggestions = suggestions;
       });
-    }
-    return Promise.resolve();
   }
+
+  // tslint:disable-next-line:member-ordering
+  private request = debounce(function(search) {
+    return this.getSuggests(search);
+  }, REQUEST_DELAY);
+
 }
