@@ -1,12 +1,19 @@
-<div>
+<div class="autocomplete">
     <input
-        @input='onInput'
+        class="autocomplete_input"
+        @input="onInput($event.target.value)"
+        @blur="onBlur"
         :value="value"
+        :placeholder="placeholder"
     />
-    <ul>
+    <ul
+      class="suggestions-list"
+      v-if="showSuggestions"
+    >
         <li
-          class="typeahead__suggestion"
-          v-for="suggestion of suggestions"
+          class="suggestions-list_item"
+          v-for="(suggestion, index) of suggestions"
+          :key="index"
           @click="selectSuggest(suggestion)"
         >{{ suggestion }}</li>
     </ul>
