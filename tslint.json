@@ -16,6 +16,7 @@
         }
       }
     ],
+    "no-any": true,
     "member-access": [true, "check-accessor"]
   }
 }

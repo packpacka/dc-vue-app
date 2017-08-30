@@ -12,6 +12,7 @@ export interface IYmapsSuggestion {
 }
 
 export interface IYmapsGeocodeResult {
+  // tslint:disable-next-line:no-any
   geoObjects: any;
 }
 
@@ -42,7 +43,9 @@ export interface IYmapsMap {
 }
 
 export interface IYmapsGeoObjects {
+  // tslint:disable-next-line:no-any
   add(object: any): void;
+  // tslint:disable-next-line:no-any
   get(index: number): any;
 }
 
