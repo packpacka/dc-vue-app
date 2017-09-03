@@ -22,7 +22,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.html$/,
+        test: /\.(html|tpl)$/,
         loader: 'raw-loader',
       },
       {
@@ -30,7 +30,7 @@ module.exports = {
         loader: 'awesome-typescript-loader',
       },
       {
-        test: /\.scss$/,
+        test: /\.(css|scss)$/,
         loader: ExtractTextPlugin.extract({
           fallbackLoader: "style-loader",
           loader: "css-loader!sass-loader",

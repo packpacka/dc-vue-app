@@ -11,13 +11,15 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "typeRoots": [
-      "../node_modules/@types"
+      "../node_modules/@types",
+      "./types"
     ],
     "types": [
       "vue",
       "axios",
       "node",
-      "jasmine"
+      "jasmine",
+      "ymaps"
     ],
     "lib": ["es6", "dom"]
   },
