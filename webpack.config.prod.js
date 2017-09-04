@@ -39,7 +39,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.html', '.js','.ts', '.__prod.ts'],
+    extensions: ['.html', '.tpl', '.js','.ts', '.__prod.ts'],
     alias: {
       'vue$': 'vue/dist/vue.common.js'
     },

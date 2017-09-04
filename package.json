@@ -5,9 +5,9 @@
   "scripts": {
     "start": "npm run wds",
     "build": "rm -rf ./public/build && webpack --progress --config webpack.config.prod.js",
-    "build:watch": "rm -rf ./public/build && webpack --progress --config webpack.config.dev.js -w",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "build:test": "webpack --progress --config webpack.config.test.js",
+    "test": "karma start karma.conf.once.js",
+    "test:watch": "onchange 'src/app/**/*.ts' -- npm test",
     "wds": "webpack-dev-server --config webpack.config.dev.js --progress --history-api-fallback --inline --content-base ./public --port 4900",
     "hmr": "npm run wds -- --hot",
     "server:express": "ts-node ./server/index"
@@ -57,6 +57,11 @@
     "webpack-dev-server": "^2.3.0"
   },
   "dependencies": {
-    "debounce-promise": "^3.0.1"
+    "debounce-promise": "^3.0.1",
+    "karma": "^1.7.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-webpack": "^2.0.4",
+    "ts-loader": "^2.3.4"
   }
 }

@@ -2,22 +2,14 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const path = require("path");
+const glob = require("glob");
 
 
 module.exports = {
   entry: {
-    polyfills: [
-      "./src/app/polyfills.ts",
-    ],
     main: [
       "./src/app/main.ts",
-      "./src/css/main.scss",
-    ]
-  },
-  output: {
-    path: __dirname + "/public/build",
-    publicPath: '/build/',
-    filename: '[name].js',
+    ].concat(glob.sync("./src/**/*.spec.ts")),
   },
   devtool: "cheap-eval-source-map",
   module: {
@@ -28,25 +20,21 @@ module.exports = {
       },
       {
         test: /\.ts$/,
-        loader: 'awesome-typescript-loader',
+        loader: 'ts-loader',
       },
       {
         test: /\.(css|scss)$/,
-        loader: ExtractTextPlugin.extract({
-          fallbackLoader: "style-loader",
-          loader: "css-loader!sass-loader",
-        }),
+        loader: 'css-loader!sass-loader',
       },
-    ],
+    ]
   },
   resolve: {
-    extensions: ['.html', '.tpl', '.js','.ts', '.__dev.ts'],
+    extensions: ['.html', '.tpl', '.js','.ts', '.__test.ts'],
     alias: {
       'vue$': 'vue/dist/vue.common.js'
     },
   },
   plugins: [
-    new ExtractTextPlugin("styles.css"),
     new webpack.NamedModulesPlugin(),
   ],
 };
