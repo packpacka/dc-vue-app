@@ -4,7 +4,7 @@ import { Preloader } from '../preloader/preloader';
 import './autocomplete.input.scss';
 import * as debounce from 'debounce-promise';
 
-const REQUEST_DELAY = 1380;
+export const REQUEST_DELAY = 1380;
 
 @Component({
   props: {
@@ -15,7 +15,7 @@ const REQUEST_DELAY = 1380;
     placeholder: {
       type: String,
     },
-    getSuggests: {
+    getSuggestions: {
       type: Function,
       require: true,
     },
@@ -32,7 +32,7 @@ const REQUEST_DELAY = 1380;
 })
 export class AutocompleteInput extends Vue {
   public value: string;
-  public getSuggests: (search: string) => Promise<string[]>;
+  public getSuggestions: (search: string) => Promise<string[]>;
   public minLettersForRequest: number;
 
   public suggestions: string[] = [];
@@ -76,7 +76,7 @@ export class AutocompleteInput extends Vue {
 
   // tslint:disable-next-line:member-ordering
   private request = debounce(function(search) {
-    return this.getSuggests(search);
+    return this.getSuggestions(search);
   }, REQUEST_DELAY);
 
 }

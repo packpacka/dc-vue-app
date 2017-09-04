@@ -2,7 +2,7 @@
     <h1>Где я?</h1>
     <form @submit.prevent="onSubmit">
       <autocomplete-input
-          :getSuggests="getAddresses"
+          :getSuggestions="getAddresses"
           :placeholder="'Название места...'"
           :minLettersForRequest="4"
           @select="onAddressSelect"

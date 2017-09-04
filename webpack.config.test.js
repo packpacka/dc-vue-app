@@ -11,7 +11,6 @@ module.exports = {
       "./src/app/main.ts",
     ].concat(glob.sync("./src/**/*.spec.ts")),
   },
-  devtool: "cheap-eval-source-map",
   module: {
     loaders: [
       {
@@ -29,7 +28,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.html', '.tpl', '.js','.ts', '.__test.ts'],
+    extensions: ['.html', '.js', '.ts', '.__test.ts', '.tpl'],
     alias: {
       'vue$': 'vue/dist/vue.common.js'
     },
